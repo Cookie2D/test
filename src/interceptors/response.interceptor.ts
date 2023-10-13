@@ -7,6 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as messages from '../const/messages';
 
 export interface Response<T> {
   statusCode: number;
@@ -15,9 +16,7 @@ export interface Response<T> {
 }
 
 @Injectable()
-export class ResponseInterceptor<T>
-  implements NestInterceptor<T, Response<T>>
-{
+export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
   constructor(private reflector: Reflector) {}
   intercept(
     context: ExecutionContext,
@@ -30,9 +29,9 @@ export class ResponseInterceptor<T>
           this.reflector.get<string>(
             'response_message',
             context.getHandler(),
-          ) || '',
+          ) || messages.SUCCESS,
         data,
-      }))
+      })),
     );
   }
 }
