@@ -7,10 +7,16 @@ export class UserRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
   async findOne(email: string): Promise<users> {
-    return await this.prismaService.users.findFirst({
+    return await this.prismaService.users.findUnique({
       where: {
         email,
       },
+    });
+  }
+
+  async getOne(id: number): Promise<users> {
+    return await this.prismaService.users.findUnique({
+      where: { id },
     });
   }
 

@@ -11,6 +11,11 @@ export class UserService {
     return await this.userRepository.findOne(email);
   }
 
+  async getOne(id: number): Promise<users> {
+    const user = await this.userRepository.getOne(id);
+    return excludeFromObject(user, 'password');
+  }
+
   async createOne(data: Prisma.usersCreateInput): Promise<users> {
     const exist = await this.findOne(data.email);
 
