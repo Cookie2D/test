@@ -11,6 +11,7 @@ import { ResponseInterceptor } from 'src/interceptors/response.interceptor';
 import { ResponseMessage } from 'src/decorators/response_message.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as messages from '../../const/messages';
+import { LoginDto } from './dto/login.dto';
 
 @UseInterceptors(ResponseInterceptor)
 @Controller('auth')
@@ -19,14 +20,14 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('/login')
-  login(@Body() body: any): any {
+  login(@Body() body: LoginDto): Promise<{ token: string }> {
     return this.authService.login(body);
   }
 
   @ResponseMessage(messages.USER_CREATED)
   @HttpCode(HttpStatus.CREATED)
   @Post('/register')
-  register(@Body() body: CreateUserDto): any {
+  register(@Body() body: CreateUserDto): Promise<{ token: string }> {
     return this.authService.register(body);
   }
 }

@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { users } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import * as messages from '../../../const/messages';
+import { LoginDto } from '../dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(body: any) {
+  async login(body: LoginDto): Promise<{ token: string }> {
     const user = await this.userService.findOne(body.email);
 
     if (!user) {
