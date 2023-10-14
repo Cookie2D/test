@@ -1,4 +1,7 @@
-export function excludeFromObject(object, ...excluding: Array<String>) {
+export function excludeFromObject(
+  object: Object,
+  ...excluding: Array<String>
+): any {
   const filteredObject = {};
 
   if (!object) return null;
