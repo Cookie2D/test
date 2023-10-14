@@ -10,6 +10,7 @@ import { AuthService } from './services/auth.service';
 import { ResponseInterceptor } from 'src/interceptors/response.interceptor';
 import { ResponseMessage } from 'src/decorators/response_message.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
+import * as messages from '../../const/messages';
 
 @UseInterceptors(ResponseInterceptor)
 @Controller('auth')
@@ -22,7 +23,7 @@ export class AuthController {
     return this.authService.login(body);
   }
 
-  @ResponseMessage('User has been successfully created') // move to messages consts
+  @ResponseMessage(messages.USER_CREATED)
   @HttpCode(HttpStatus.CREATED)
   @Post('/register')
   register(@Body() body: CreateUserDto): any {
