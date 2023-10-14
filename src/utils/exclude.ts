@@ -1,5 +1,5 @@
-export function excludeFromObject(object: Object, ...excluding: Array<String>) {
-  const filteredObject: any = {};
+export function excludeFromObject(object, ...excluding: Array<String>) {
+  const filteredObject = {};
 
   if (!object) return null;
 
