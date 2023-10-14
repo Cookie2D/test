@@ -1,5 +1,5 @@
 import { IRequest } from 'src/types/request.type';
-import { users } from '@prisma/client';
+import { user } from '@prisma/client';
 import { UserService } from './services/user.service';
 import {
   Controller,
@@ -21,7 +21,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   @Get('details')
   @HttpCode(HttpStatus.OK)
-  async getDetails(@Request() req: IRequest): Promise<users> {
+  async getDetails(@Request() req: IRequest): Promise<user> {
     return await this.userService.getOne(req.user.sub);
   }
 }

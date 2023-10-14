@@ -2,7 +2,7 @@ import { UserService } from './../../user/services/user.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
-import { users } from '@prisma/client';
+import { user } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import * as messages from '../../../const/messages';
 import { LoginDto } from '../dto/login.dto';
@@ -40,7 +40,7 @@ export class AuthService {
     return this.generateToken(newUser);
   }
 
-  private async generateToken(user: users): Promise<{ token: string }> {
+  private async generateToken(user: user): Promise<{ token: string }> {
     const payload = { sub: user.id, email: user.email };
     const token = await this.jwtService.signAsync(payload);
 
