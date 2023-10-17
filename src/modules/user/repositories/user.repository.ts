@@ -9,15 +9,14 @@ export class UserRepository {
 
   async findOne(email: string): Promise<user> {
     return await this.prismaService.user.findFirst({
-      where: {
-        email,
-      },
+      where: { email },
     });
   }
 
   async getOne(id: number): Promise<user> {
     return await this.prismaService.user.findUnique({
       where: { id },
+      include: { role: true },
     });
   }
 

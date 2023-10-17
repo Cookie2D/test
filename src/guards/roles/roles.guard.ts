@@ -7,6 +7,8 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Roles } from 'src/decorators/roles.decorator';
+import { IRequest } from 'src/types/request.type';
+import * as messages from '../../const/messages';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -17,13 +19,11 @@ export class RolesGuard implements CanActivate {
     const roles = this.reflector.get(Roles, context.getHandler());
     if (!roles) return true;
 
-    const request = context.switchToHttp().getRequest();
+    const request: IRequest = context.switchToHttp().getRequest();
     const user = request.user;
 
     if (!roles.includes(user.role)) {
-      throw new UnauthorizedException(
-        'Unavailable roles to perform this action', // MOVE TO ERROR MESSAGES CONSTS
-      );
+      throw new UnauthorizedException(messages.MISSING_ROLE);
     }
     return true;
   }
