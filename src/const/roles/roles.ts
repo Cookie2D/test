@@ -1,5 +1,5 @@
-export enum RolesEnum { // read more how to generate roles from DB
-  ADMIN = 1,
-  USER = 2,
-  WAITER = 3,
-}
+export const Role = {
+  USER: 'user',
+  ADMIN: 'admin',
+  WAITER: 'waiter',
+};
