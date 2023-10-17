@@ -8,17 +8,18 @@ import {
   HttpStatus,
   Request,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
-import { ResponseInterceptor } from 'src/interceptors/response.interceptor';
+import { Roles } from 'src/decorators/roles.decorator';
+import { RolesGuard } from 'src/guards/roles/roles.guard';
+import { Role } from 'src/const/roles';
 
-@UseInterceptors(ResponseInterceptor)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles([Role.WAITER, Role.USER])
   @Get('details')
   @HttpCode(HttpStatus.OK)
   async getDetails(@Request() req: IRequest): Promise<user> {

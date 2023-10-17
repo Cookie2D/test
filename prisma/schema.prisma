@@ -9,7 +9,7 @@ datasource db {
 
 model role {
   id   Int    @id @default(autoincrement())
-  name String @db.VarChar(100)
+  name String @unique(map: "Role_name_key") @db.VarChar(100)
   user user[]
 }
 
