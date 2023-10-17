@@ -3,10 +3,12 @@ import { AuthService } from './services/auth.service';
 import { AuthController } from './auth.controller';
 import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
+import { RoleModule } from '../role/role.module';
 
 @Module({
   imports: [
     UserModule,
+    RoleModule,
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,

@@ -6,11 +6,13 @@ import { user } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import * as messages from '../../../const/messages';
 import { LoginDto } from '../dto/login.dto';
-
+import { RoleService } from 'src/modules/role/services/role.service';
+import { IRequest } from '../../../types/request.type';
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
+    private readonly roleService: RoleService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -41,7 +43,8 @@ export class AuthService {
   }
 
   private async generateToken(user: user): Promise<{ token: string }> {
-    const payload = { sub: user.id, role: user.roleId };
+    const role = await this.roleService.getRole(user.roleId);
+    const payload: IRequest['user'] = { sub: user.id, role: role.name };
     const token = await this.jwtService.signAsync(payload);
 
     return { token };
