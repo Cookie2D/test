@@ -32,4 +32,12 @@ export class UserRepository {
 
     return await this.prismaService.user.create({ data });
   }
+
+  async patchOne(id: number, user: Prisma.userUpdateInput): Promise<user> {
+    return await this.prismaService.user.update({
+      where: { id },
+      data: user,
+      include: { role: true },
+    });
+  }
 }
