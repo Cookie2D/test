@@ -26,8 +26,7 @@ import {
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles([Role.WAITER, Role.USER])
+  @UseGuards(AuthGuard)
   @Get('details')
   @HttpCode(HttpStatus.OK)
   async getDetails(@Request() req: IRequest): Promise<user> {
