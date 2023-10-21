@@ -27,4 +27,10 @@ export class UserService {
 
     return excludeFromObject(user, 'password');
   }
+
+  async updateOneById(id: number, data: Prisma.userUpdateInput): Promise<user> {
+    const updatedUser = await this.userRepository.patchOne(id, data);
+
+    return excludeFromObject(updatedUser, 'password');
+  }
 }
