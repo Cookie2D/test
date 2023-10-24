@@ -1,8 +1,8 @@
-export function excludeFromObject(
-  object: Object,
+export function excludeFromObject<T>(
+  object: T,
   ...excluding: Array<String>
-): any {
-  const filteredObject = {};
+): T {
+  const filteredObject: Partial<T> = {};
 
   if (!object) return null;
 
@@ -15,5 +15,5 @@ export function excludeFromObject(
     }
   }
 
-  return filteredObject;
+  return filteredObject as T;
 }
