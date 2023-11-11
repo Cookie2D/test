@@ -14,14 +14,15 @@ model role {
 }
 
 model user {
-  id         Int     @id @default(autoincrement())
-  first_name String? @db.VarChar(100)
-  last_name  String? @db.VarChar(100)
-  email      String  @unique(map: "User_email_key")
-  phone      String? @db.VarChar(100)
-  password   String  @db.VarChar(100)
-  roleId     Int?
-  role       role?   @relation(fields: [roleId], references: [id], onDelete: Restrict, map: "User_roleId_fkey")
+  id            Int     @id @default(autoincrement())
+  first_name    String? @db.VarChar(100)
+  last_name     String? @db.VarChar(100)
+  email         String  @unique(map: "User_email_key")
+  phone         String? @db.VarChar(100)
+  password      String  @db.VarChar(100)
+  roleId        Int?
+  refresh_token String? @db.VarChar(255)
+  role          role?   @relation(fields: [roleId], references: [id], onDelete: Restrict, map: "User_roleId_fkey")
 
   @@index([roleId], map: "User_roleId_fkey")
 }

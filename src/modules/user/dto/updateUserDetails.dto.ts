@@ -22,6 +22,9 @@ export class updateCurrentUserDetaisDto {
   @IsOptional()
   @IsPhoneNumber()
   phone: string;
+
+  @IsOptional()
+  refresh_token: string;
 }
 
 export class UpdateUserDetailsDto extends updateCurrentUserDetaisDto {
